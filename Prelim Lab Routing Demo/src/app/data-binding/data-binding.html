@@ -1,0 +1,84 @@
+<div class="container">
+    <div class="header-section">
+        <h1>{{ message }}</h1>
+        <p class="page-subtitle">✨ Explore Angular's Powerful Data Binding Features ✨</p>
+    </div>
+
+    <div class="binding-grid">
+        <section>
+            <h2>Interpolation & Images</h2>
+            <div class="info-card">
+                <p><strong>Message:</strong> {{ message }}</p>
+            </div>
+            <div class="image-container">
+                <img src="https://media.istockphoto.com/id/185526001/photo/businessman-in-suit-with-no-head.jpg?s=612x612&w=0&k=20&c=2aE2YRFFd3PUxiNYTYldcyuw1-o7jDtmjzEUXCCS9T8=" [width]="50" [height]="50" alt="Professional Image">
+            </div>
+            <p><strong>Image URL:</strong> <span style="color: #d4af37; font-size: 0.9em;">Professional Businessman</span></p>
+        </section>
+
+        <section>
+            <h2>Style & Class Binding</h2>
+            <div class="info-card">
+                <p [style.color]="textColor">This text is Blue</p>
+            </div>
+            <div class="info-card">
+                <p [class.highlighted]="isHighlighted">This text is highlighted</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Two-Way Binding</h2>
+            <div class="input-group">
+                <label class="input-label">Enter Your Name</label>
+                <input [(ngModel)]="yourName" placeholder="Type your name here...">
+            </div>
+            <div class="info-card">
+                <p style="font-size: 1.3em;">👋 Hello, <strong style="color: gold;">{{ yourName }}</strong>!</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Event Binding (Counter)</h2>
+            <div class="counter-display">
+                <div class="counter-number">{{ count }}</div>
+            </div>
+            <div class="button-group">
+                <button (click)="increment()">⬆️ Increment</button>
+                <button (click)="decrement()">⬇️ Decrement</button>
+            </div>
+        </section>
+
+        <section>
+            <h2>{{ studentName }}</h2>
+            <div class="image-container">
+                <img src="https://media.istockphoto.com/id/185526001/photo/businessman-in-suit-with-no-head.jpg?s=612x612&w=0&k=20&c=2aE2YRFFd3PUxiNYTYldcyuw1-o7jDtmjzEUXCCS9T8=" width="200" alt="Professional Image">
+            </div>
+            <div class="button-group">
+                <button [disabled]="isDisabled">Submit Form</button>
+            </div>
+        </section>
+
+        <section>
+            <h2>Class Binding</h2>
+            <div class="info-card">
+                <p [class.passing]="isPassing" [class.failing]="!isPassing">
+                    🎓 Student Result: <strong>{{ isPassing ? 'Passed' : 'Failed'}}</strong>
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Style Binding</h2>
+            <p style="color: #d4af37; margin-bottom: 15px;">🎨 Dynamic Box Styling</p>
+            <div [style.background]="boxColor"
+                 [style.width]="boxSize"
+                 [style.height]="boxSize"
+                 class="box">
+            </div>
+            <div class="info-card" style="margin-top: 20px;">
+                <p><strong>Color:</strong> {{ boxColor }}</p>
+                <p><strong>Size:</strong> {{ boxSize }}</p>
+            </div>
+        </section>
+    </div>
+</div>
