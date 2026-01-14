@@ -1,0 +1,115 @@
+<div class="portfolio-layout">
+
+  <!-- Left Sidebar -->
+  <aside class="sidebar">
+    <h1 class="site-title">ANGULAR<br>PIPES</h1>
+
+    <nav class="nav-menu">
+      <a href="#dates" class="nav-link">DATES</a>
+      <a href="#formatting" class="nav-link">FORMATTING</a>
+      <a href="#numbers" class="nav-link">NUMBERS</a>
+    </nav>
+  </aside>
+
+  <!-- Main Content Grid -->
+  <main class="content-grid">
+
+    <!-- Today's Date -->
+    <div class="grid-item tall">
+      <div class="item-content">
+        <h3>Today's Date</h3>
+        <p>{{ presentDate }}</p>
+        <p>{{ presentDate | date }}</p>
+      </div>
+    </div>
+
+    <!-- Formatted Dates -->
+    <div class="grid-item">
+      <div class="item-content">
+        <h3>Formatted Dates</h3>
+        <p>Short: {{ presentDate | date:'shortDate' }}</p>
+        <p>Full: {{ presentDate | date:'fullDate' }}</p>
+        <p>Custom: {{ presentDate | date:'M/dd/yyyy' }}</p>
+        <p>Time: {{ presentDate | date:'h:mm a' }}</p>
+      </div>
+    </div>
+
+    <!-- TitleCase Pipe -->
+    <div class="grid-item wide">
+      <div class="item-content">
+        <h3>TitleCase Pipe</h3>
+        <p>Original: {{ sampleText }}</p>
+        <p>TitleCased: {{ sampleText | titlecase }}</p>
+      </div>
+    </div>
+
+    <!-- KeyValue Pipe -->
+    <div class="grid-item tall">
+      <div class="item-content">
+        <h3>KeyValue Pipe</h3>
+        <ul>
+          <li *ngFor="let item of fruitObj | keyvalue">
+            {{ item.key }} : {{ item.value }}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Currency Pipe -->
+    <div class="grid-item">
+      <div class="item-content">
+        <h3>Currency Pipe</h3>
+        <p>{{ price | currency:'USD':true }}</p>
+        <p>{{ price | currency:'INR' }}</p>
+      </div>
+    </div>
+
+    <!-- Decimal Pipe -->
+    <div class="grid-item">
+      <div class="item-content">
+        <h3>Decimal Pipe</h3>
+        <p>{{ decimalNum1 | number }}</p>
+        <p>{{ decimalNum2 | number }}</p>
+      </div>
+    </div>
+
+    <!-- Modified Decimal -->
+    <div class="grid-item">
+      <div class="item-content">
+        <h3>Modified Decimal</h3>
+        <p>{{ decimalNum1 | number:'3.1' }}</p>
+        <p>{{ decimalNum2 | number:'2.1-4' }}</p>
+      </div>
+    </div>
+
+    <!-- Percent Pipe -->
+    <div class="grid-item wide">
+      <div class="item-content">
+        <h3>Percent Pipe</h3>
+        <p>{{ decimalNum1 | percent }}</p>
+        <p>{{ decimalNum2 | percent:'1.2-2' }}</p>
+      </div>
+    </div>
+
+    <!-- Live Time -->
+    <div class="grid-item tall">
+      <div class="item-content">
+        <h3>Live Time</h3>
+        <p class="large-text">{{ time$ | async | date:'mediumTime' }}</p>
+      </div>
+    </div>
+
+    <!-- Slice Pipe -->
+    <div class="grid-item wide">
+      <div class="item-content">
+        <h3>Slice Pipe</h3>
+        <p>Start index: {{Fruits | slice:2}}</p>
+        <p>Start and end: {{Fruits | slice:1:4}}</p>
+        <p>Negative: {{Fruits | slice:-2}}</p>
+        <p>Negative range: {{Fruits | slice:-4:-2}}</p>
+      </div>
+    </div>
+
+  </main>
+
+</div>
