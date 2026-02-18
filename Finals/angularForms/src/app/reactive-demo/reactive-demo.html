@@ -1,0 +1,91 @@
+<div class="form-wrapper">
+  <span class="sys-id">SYS::HR_REG_v1.9</span>
+  <h2 data-text="// Employee Registration">// Employee Registration</h2>
+  <p class="subtitle">&gt; loading_hr_database_module —</p>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="field">
+      <label class="field-label">Full Name</label>
+      <input type="text" formControlName="fullname" placeholder="EMPLOYEE_FULLNAME">
+      <span class="err-msg" *ngIf="isInvalid('fullname') && form.get('fullname')?.errors?.['required']">Full name required</span>
+      <span class="err-msg" *ngIf="isInvalid('fullname') && form.get('fullname')?.errors?.['minlength']">Min 3 characters required</span>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Email Address</label>
+      <input type="email" formControlName="email" placeholder="USER@CORP.NET">
+      <span class="err-msg" *ngIf="isInvalid('email') && form.get('email')?.errors?.['required']">Email required</span>
+      <span class="err-msg" *ngIf="isInvalid('email') && form.get('email')?.errors?.['email']">Invalid email format</span>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Password</label>
+      <div class="input-action-row">
+        <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="MIN_8_CHARS">
+        <button type="button" class="toggle-btn" (click)="showPassword = !showPassword">
+          {{ showPassword ? 'HIDE' : 'SHOW' }}
+        </button>
+      </div>
+      <span class="err-msg" *ngIf="isInvalid('password') && form.get('password')?.errors?.['required']">Password required</span>
+      <span class="err-msg" *ngIf="isInvalid('password') && form.get('password')?.errors?.['minlength']">Min 8 characters required</span>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Employee ID</label>
+      <input type="text" formControlName="employeeId" placeholder="EMP-NNNNN">
+      <span class="err-msg" *ngIf="isInvalid('employeeId') && form.get('employeeId')?.errors?.['required']">Employee ID required</span>
+      <span class="err-msg" *ngIf="isInvalid('employeeId') && form.get('employeeId')?.errors?.['pattern']">Format: EMP-NNNNN</span>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Department</label>
+      <select formControlName="department">
+        <option *ngFor="let d of departments" [value]="d">{{ d | uppercase }}</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Gender</label>
+      <div class="radio-group">
+        <label><input type="radio" formControlName="gender" value="Male"> MALE</label>
+        <label><input type="radio" formControlName="gender" value="Female"> FEMALE</label>
+        <label><input type="radio" formControlName="gender" value="Prefer not to say"> N/A</label>
+      </div>
+      <span class="err-msg" *ngIf="isInvalid('gender')">Gender selection required</span>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Employment Status</label>
+      <div class="radio-group">
+        <label><input type="radio" formControlName="status" value="Full-time"> FULL-TIME</label>
+        <label><input type="radio" formControlName="status" value="Part-time"> PART-TIME</label>
+        <label><input type="radio" formControlName="status" value="Contractual"> CONTRACT</label>
+      </div>
+      <span class="err-msg" *ngIf="isInvalid('status')">Status selection required</span>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Start Date</label>
+      <input type="date" formControlName="startDate">
+      <span class="err-msg" *ngIf="isInvalid('startDate')">Start date required</span>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Bio <span class="optional">(optional)</span></label>
+      <textarea formControlName="bio" placeholder="PROFESSIONAL_SUMMARY..." rows="3" maxlength="200"></textarea>
+      <span class="char-counter">{{ form.get('bio')?.value?.length || 0 }} / 200</span>
+    </div>
+
+    <button type="submit" [disabled]="form.invalid">REGISTER EMPLOYEE</button>
+  </form>
+
+  <div class="result" *ngIf="submitted">
+    <p class="result-title">✓ EMPLOYEE REGISTERED</p>
+    <p><strong>NAME:</strong> {{ form.value.fullname }}</p>
+    <p><strong>EMP ID:</strong> {{ form.value.employeeId }}</p>
+    <p><strong>DEPT:</strong> {{ form.value.department }}</p>
+    <p><strong>STATUS:</strong> {{ form.value.status }}</p>
+    <p><strong>START:</strong> {{ form.value.startDate }}</p>
+  </div>
+</div>

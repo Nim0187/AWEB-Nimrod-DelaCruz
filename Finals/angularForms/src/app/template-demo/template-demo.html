@@ -1,0 +1,105 @@
+<div class="form-wrapper">
+  <span class="sys-id">SYS::ENROLL_v2.4</span>
+  <h2 data-text="// Student Enrollment">// Student Enrollment</h2>
+  <p class="subtitle">&gt; initiate_registration_sequence —</p>
+
+  <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)" novalidate>
+
+    <div class="field">
+      <label class="field-label">Full Name</label>
+      <input type="text" name="fullname" [(ngModel)]="fullname" #fullnameRef="ngModel"
+        placeholder="FULL_NAME_INPUT" required minlength="3">
+      <span class="err-msg" *ngIf="fullnameRef.touched && fullnameRef.errors?.['required']">Full name is required</span>
+      <span class="err-msg" *ngIf="fullnameRef.touched && fullnameRef.errors?.['minlength']">Min 3 characters required</span>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Email Address</label>
+      <input type="email" name="email" [(ngModel)]="email" #emailRef="ngModel"
+        placeholder="USER@DOMAIN.EXT" required email>
+      <span class="err-msg" *ngIf="emailRef.touched && emailRef.errors?.['required']">Email address required</span>
+      <span class="err-msg" *ngIf="emailRef.touched && emailRef.errors?.['email']">Invalid email format</span>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Phone Number</label>
+      <input type="text" name="phone" [(ngModel)]="phone" #phoneRef="ngModel"
+        placeholder="09XXXXXXXXX" required pattern="^[0-9]{11}$">
+      <span class="err-msg" *ngIf="phoneRef.touched && phoneRef.errors?.['required']">Phone number required</span>
+      <span class="err-msg" *ngIf="phoneRef.touched && phoneRef.errors?.['pattern']">Must be 11-digit number</span>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Student ID</label>
+      <input type="text" name="studentId" [(ngModel)]="studentId" #studentIdRef="ngModel"
+        placeholder="YYYY-NNNNN" required pattern="^\d{4}-\d{5}$">
+      <span class="err-msg" *ngIf="studentIdRef.touched && studentIdRef.errors?.['required']">Student ID required</span>
+      <span class="err-msg" *ngIf="studentIdRef.touched && studentIdRef.errors?.['pattern']">Format: YYYY-NNNNN</span>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Course Program</label>
+      <select name="course" [(ngModel)]="course" #courseRef="ngModel" required>
+        <option value="" disabled>SELECT_COURSE</option>
+        <option value="BSCS">BSCS — Computer Science</option>
+        <option value="BSIT">BSIT — Information Technology</option>
+        <option value="BSBA">BSBA — Business Administration</option>
+        <option value="BSN">BSN — Nursing</option>
+        <option value="BSED">BSED — Education</option>
+      </select>
+      <span class="err-msg" *ngIf="courseRef.touched && courseRef.errors?.['required']">Course selection required</span>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Year Level</label>
+      <div class="radio-group">
+        <label><input type="radio" name="year" [(ngModel)]="year" value="1st" required> 1ST</label>
+        <label><input type="radio" name="year" [(ngModel)]="year" value="2nd"> 2ND</label>
+        <label><input type="radio" name="year" [(ngModel)]="year" value="3rd"> 3RD</label>
+        <label><input type="radio" name="year" [(ngModel)]="year" value="4th"> 4TH</label>
+      </div>
+      <span class="err-msg" *ngIf="myForm.submitted && !year">Year level selection required</span>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Enrollment Status</label>
+      <div class="radio-group">
+        <label><input type="radio" name="status" [(ngModel)]="status" value="Regular" required> REGULAR</label>
+        <label><input type="radio" name="status" [(ngModel)]="status" value="Irregular"> IRREGULAR</label>
+      </div>
+      <span class="err-msg" *ngIf="myForm.submitted && !status">Status selection required</span>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Scholarship <span class="optional">(optional)</span></label>
+      <select name="scholarship" [(ngModel)]="scholarship">
+        <option value="">NONE / NOT_APPLICABLE</option>
+        <option value="CHED">CHED Scholarship</option>
+        <option value="LGU">LGU Scholarship</option>
+        <option value="Private">Private Scholarship</option>
+        <option value="PWD">PWD Grant</option>
+        <option value="Solo">Solo Parent</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Notes <span class="optional">(optional)</span></label>
+      <textarea name="notes" [(ngModel)]="notes"
+        placeholder="INPUT_ADDITIONAL_DATA..." rows="3" maxlength="300">
+      </textarea>
+      <span class="char-counter" [class.warn]="notes.length > 250">{{ notes.length }} / 300</span>
+    </div>
+
+    <button type="submit">INITIATE ENROLLMENT</button>
+  </form>
+
+  <div class="result" *ngIf="submitted">
+    <p class="result-title">✓ ENROLLMENT CONFIRMED</p>
+    <p><strong>NAME:</strong> {{ fullname }}</p>
+    <p><strong>EMAIL:</strong> {{ email }}</p>
+    <p><strong>ID:</strong> {{ studentId }}</p>
+    <p><strong>COURSE:</strong> {{ course }} / {{ year }} YR</p>
+    <p><strong>STATUS:</strong> {{ status }}</p>
+    <p *ngIf="scholarship"><strong>SCHOL:</strong> {{ scholarship }}</p>
+  </div>
+</div>

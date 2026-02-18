@@ -1,0 +1,84 @@
+<div class="form-wrapper">
+  <span class="sys-id">SYS::TICKET_v3.1</span>
+  <h2 data-text="// Support Ticket">// Support Ticket</h2>
+  <p class="subtitle">&gt; response_eta: 24_hours —</p>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="field">
+      <label class="field-label">Your Name</label>
+      <input type="text" formControlName="name" placeholder="AGENT_NAME_INPUT">
+      <span class="err-msg" *ngIf="isInvalid('name') && form.get('name')?.errors?.['required']">Name required</span>
+      <span class="err-msg" *ngIf="isInvalid('name') && form.get('name')?.errors?.['minlength']">Min 2 characters</span>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Email Address</label>
+      <input type="email" formControlName="email" placeholder="CONTACT@DOMAIN.NET">
+      <span class="err-msg" *ngIf="isInvalid('email') && form.get('email')?.errors?.['required']">Email required</span>
+      <span class="err-msg" *ngIf="isInvalid('email') && form.get('email')?.errors?.['email']">Invalid email format</span>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Phone Number</label>
+      <input type="text" formControlName="phone" placeholder="09XXXXXXXXX">
+      <span class="err-msg" *ngIf="isInvalid('phone') && form.get('phone')?.errors?.['required']">Phone required</span>
+      <span class="err-msg" *ngIf="isInvalid('phone') && form.get('phone')?.errors?.['pattern']">Must be 11-digit number</span>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Issue Category</label>
+      <select formControlName="category">
+        <option value="" disabled>SELECT_CATEGORY</option>
+        <option *ngFor="let c of categories" [value]="c">{{ c | uppercase }}</option>
+      </select>
+      <span class="err-msg" *ngIf="isInvalid('category')">Category required</span>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Priority Level</label>
+      <div class="radio-group">
+        <label class="priority-low"><input type="radio" formControlName="priority" value="Low"> LOW</label>
+        <label class="priority-medium"><input type="radio" formControlName="priority" value="Medium"> MEDIUM</label>
+        <label class="priority-high"><input type="radio" formControlName="priority" value="High"> HIGH</label>
+      </div>
+      <span class="err-msg" *ngIf="isInvalid('priority')">Priority required</span>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Subject</label>
+      <input type="text" formControlName="subject" placeholder="BRIEF_ISSUE_DESCRIPTION">
+      <span class="err-msg" *ngIf="isInvalid('subject') && form.get('subject')?.errors?.['required']">Subject required</span>
+      <span class="err-msg" *ngIf="isInvalid('subject') && form.get('subject')?.errors?.['minlength']">Min 5 characters</span>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Reference No. <span class="optional">(optional)</span></label>
+      <input type="text" formControlName="reference" placeholder="ORD-YYYY-NNNNN">
+    </div>
+
+    <div class="field">
+      <label class="field-label">Message</label>
+      <textarea formControlName="message"
+        placeholder="DESCRIBE_ISSUE_IN_DETAIL..."
+        rows="4" maxlength="500">
+      </textarea>
+      <span class="char-counter" [class.warn]="(form.get('message')?.value?.length || 0) > 400">
+        {{ form.get('message')?.value?.length || 0 }} / 500
+      </span>
+      <span class="err-msg" *ngIf="isInvalid('message') && form.get('message')?.errors?.['required']">Message required</span>
+      <span class="err-msg" *ngIf="isInvalid('message') && form.get('message')?.errors?.['minlength']">Min 10 characters</span>
+    </div>
+
+    <button type="submit" [disabled]="form.invalid">TRANSMIT TICKET</button>
+  </form>
+
+  <div class="result" *ngIf="submitted">
+    <p class="result-title">✓ TICKET TRANSMITTED</p>
+    <p><strong>NAME:</strong> {{ form.value.name }}</p>
+    <p><strong>CATEGORY:</strong> {{ form.value.category }}</p>
+    <p><strong>PRIORITY:</strong> {{ form.value.priority }}</p>
+    <p><strong>SUBJECT:</strong> {{ form.value.subject }}</p>
+    <p *ngIf="form.value.reference"><strong>REF:</strong> {{ form.value.reference }}</p>
+  </div>
+</div>
